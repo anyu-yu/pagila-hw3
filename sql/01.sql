@@ -10,5 +10,5 @@ WHERE customer_id IN (
     JOIN address USING (address_id)
     JOIN city USING (city_id)
     JOIN country USING (country_id)
-    WHERE NOT(country.country = 'US')
+    WHERE NOT(country.country = 'United States')
 );

@@ -18,3 +18,25 @@
  *    Ensure that you are not counting a customer that has rented a movie twice as 2 separate customers renting the movie.
  *    I did this by using the SELECT DISTINCT clause.
  */
+
+WITH inv AS (
+    SELECT *
+    FROM inventory
+    JOIN rental USING (inventory_id)
+)
+
+SELECT DISTINCT f1.title
+FROM film f1
+JOIN inv i1 ON (f1.film_id = i1.film_id)
+JOIN inv i2 ON (f1.film_id = i2.film_id)
+JOIN inv i3 ON (f1.film_id = i3.film_id)
+JOIN inv i4 ON (i1.customer_id = i4.customer_id)
+JOIN inv i5 ON (i2.customer_id = i5.customer_id AND i4.film_id = i5.film_id)
+JOIN inv i6 ON (i3.customer_id = i6.customer_id AND i4.film_id = i6.film_id)
+JOIN film f2 ON (i4.film_id = f2.film_id)
+WHERE NOT(i1.customer_id = i2.customer_id)
+    AND NOT(i1.customer_id = i3.customer_id)
+    AND NOT(i2.customer_id = i3.customer_id)
+    AND f2.title = 'BUCKET BROTHERHOOD'
+    AND NOT(f1.title = 'BUCKET BROTHERHOOD')
+ORDER BY f1.title;

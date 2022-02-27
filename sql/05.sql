@@ -6,3 +6,21 @@
  * HINT:
  * This can be solved with a self join on the film_actor table.
  */
+
+SELECT DISTINCT film.title
+FROM film
+JOIN film_actor fa0 ON (film.film_id = fa0.film_id)
+JOIN film_actor fa1 ON (fa0.film_id = fa1.film_id)
+WHERE fa0.actor_id IN (
+    SELECT DISTINCT film_actor.actor_id
+    FROM film_actor
+    JOIN film USING (film_id)
+    WHERE film.title = 'AMERICAN CIRCUS'
+)
+AND fa1.actor_id IN (
+    SELECT DISTINCT film_actor.actor_id
+    FROM film_actor
+    JOIN film USING (film_id)
+    WHERE film.title = 'AMERICAN CIRCUS'
+)
+AND NOT(fa1.actor_id = fa0.actor_id);
