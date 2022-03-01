@@ -24,3 +24,4 @@ AND fa1.actor_id IN (
     WHERE film.title = 'AMERICAN CIRCUS'
 )
 AND NOT(fa1.actor_id = fa0.actor_id);
+ORDER BY film.title
