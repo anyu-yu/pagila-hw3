@@ -23,5 +23,5 @@ AND fa1.actor_id IN (
     JOIN film USING (film_id)
     WHERE film.title = 'AMERICAN CIRCUS'
 )
-AND NOT(fa1.actor_id = fa0.actor_id);
-ORDER BY film.title
+AND NOT(fa1.actor_id = fa0.actor_id)
+ORDER BY film.title;
